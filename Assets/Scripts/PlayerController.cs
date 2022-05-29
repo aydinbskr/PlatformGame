@@ -94,7 +94,7 @@ public class PlayerController : MonoBehaviour
     }
     void Jump()
     {
-
+         a[2].Play();
         playerRB.AddForce(new Vector2(0, jumpSpeed));
     }
     void OnGroundCheck()
@@ -150,10 +150,17 @@ public class PlayerController : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other) {
       
-        if(other.name=="Potion")
-        {
+        if(other.tag=="Potion")
+        {   
+            a[3].Play();
             currentPotion+=5;
             potionBar.SetPotion(currentPotion);
+            Destroy(other.gameObject);
+        }
+        if(other.tag=="Coin")
+        {
+            a[3].Play();
+            DataManager.Instance.UserScore+=1;
             Destroy(other.gameObject);
         }
         

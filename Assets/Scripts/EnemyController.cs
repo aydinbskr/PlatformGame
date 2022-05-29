@@ -18,6 +18,11 @@ public class EnemyController : MonoBehaviour
     bool mustTurn;
 
     public Rigidbody2D rb;
+    AudioSource a;
+    void Awake()
+	{
+		a=gameObject.GetComponent<AudioSource>();
+	}
     void Start()
     {
         enemyAnimator= GetComponent<Animator>();
@@ -48,6 +53,7 @@ public class EnemyController : MonoBehaviour
         }
         else if(other.tag=="Fire")
         {
+            a.Play();
             GetDamage(1);
             StartCoroutine(TakingDamage());
             Destroy(other.gameObject,0.5f);

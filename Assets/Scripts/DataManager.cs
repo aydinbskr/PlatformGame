@@ -50,7 +50,7 @@ public class DataManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-     public int UserScore{get;set;}
+    public int UserScore{get;set;}
 
     public int Health{get;set;}
     public int BossHealth{get;set;}
