@@ -31,7 +31,7 @@ public class PauseMenu : MonoBehaviour
 	void OnGUI()
 	{
 		 GUI.depth = 1;
-		if(GUI.Button(new Rect(Screen.width*.9f,Screen.width*0f,Screen.width*.10f, Screen.width*.10f),"",pause))
+		if(GUI.Button(new Rect(Screen.width*.95f,Screen.width*.01f,Screen.width*.10f, Screen.width*.10f),"",pause))
 		{
 			paused=!paused;
 			

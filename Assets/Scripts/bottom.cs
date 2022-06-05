@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class bottom : MonoBehaviour
 {
     //ON GUI BUTTONS
-    bool isPlayerDrop=false;
+   
     public GUIStyle replay;
 	public GUIStyle home;
 	public GUIStyle gameOver;
@@ -18,7 +18,7 @@ public class bottom : MonoBehaviour
 	{
 		if(col.gameObject.tag=="Player")
 		{
-            isPlayerDrop=true;
+            DataManager.Instance.Gameover=true;
             Time.timeScale=0;
 			print("player drop");
         }
@@ -26,20 +26,21 @@ public class bottom : MonoBehaviour
 		Destroy(col.gameObject);
 	}
 
-     void OnGUI()
+    void OnGUI()
 	{
 		
 		
-		if(isPlayerDrop)
+		if( DataManager.Instance.Gameover)
 		{
 			Time.timeScale=0;
 			DataManager.Instance.LevelTime=40;
-			if(GUI.Button(new Rect(Screen.width*.1f, Screen.height*.6f, Screen.width*.38f, Screen.height*.08f), "", replay))
+			if(GUI.Button(new Rect(Screen.width*.1f, Screen.height*.7f, Screen.width*.38f, Screen.height*.1f), "", replay))
 			{
 				
 				Time.timeScale=1;
-			
-				
+
+				DataManager.Instance.PlayerHealth=4;
+				DataManager.Instance.Gameover=false;
 				DataManager.Instance.UserScore=0;
 				DataManager.Instance.Speed=6;
 				
@@ -47,7 +48,7 @@ public class bottom : MonoBehaviour
 
 				
 			}
-			if(GUI.Button(new Rect(Screen.width*.52f, Screen.height*.6f, Screen.width*.38f, Screen.height*.08f), "", home))
+			if(GUI.Button(new Rect(Screen.width*.52f, Screen.height*.7f, Screen.width*.38f, Screen.height*.1f), "", home))
 			{
 				DataManager.Instance.UserScore=0;
 				
@@ -55,7 +56,7 @@ public class bottom : MonoBehaviour
 				SceneManager.LoadScene(0);
 			}
 			//Gameover background image
-			if(GUI.Button(new Rect(Screen.width*.1f, Screen.height*.08f, Screen.width*.8f, Screen.height*.50f), "", gameOver))
+			if(GUI.Button(new Rect(Screen.width*.1f, Screen.height*.08f, Screen.width*.8f, Screen.height*.6f), "", gameOver))
 			{
 				
 			}

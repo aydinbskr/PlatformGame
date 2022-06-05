@@ -18,7 +18,8 @@ public class DataManager : MonoBehaviour
 
     private string userName;
     private int bestScore;
-    
+    private int playerHealth;
+    private int playerPotion;
     
 
     private bool gameover;
@@ -31,8 +32,8 @@ public class DataManager : MonoBehaviour
         {
             Instance=this;
             Time.timeScale = 1;
-            
-            
+            playerHealth = 4;
+            playerPotion=10;
             speed=6;
             numberOfBricks=33;
             level=1;
@@ -55,6 +56,29 @@ public class DataManager : MonoBehaviour
     public int Health{get;set;}
     public int BossHealth{get;set;}
     
+    public int PlayerHealth
+    {
+        get
+        {
+            return playerHealth;
+        }
+        set
+        {
+            playerHealth=value;
+        }
+    }
+
+    public int PlayerPotion
+    {
+        get
+        {
+            return playerPotion;
+        }
+        set
+        {
+            playerPotion=value;
+        }
+    }
     public string UserName
     {
         get
@@ -66,9 +90,7 @@ public class DataManager : MonoBehaviour
             userName=value;
         }
     }
-
-   
-     public int Speed
+    public int Speed
     {
         get
         {

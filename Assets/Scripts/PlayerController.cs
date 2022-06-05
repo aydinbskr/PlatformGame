@@ -16,9 +16,6 @@ public class PlayerController : MonoBehaviour
     bool facingRight = true;
     public bool isGrounded = false;
 
-    public int maxHealth = 4;
-    public int currentHealth;
-    public int currentPotion;
     public Transform groundCheckPosition;
 
     public float groundCheckRadius;
@@ -27,7 +24,7 @@ public class PlayerController : MonoBehaviour
     public float jumpSpeed = 4f;
 
     public float damagedTime;
-
+    public GUIStyle score;
     
     AudioSource[] a;
     void Awake()
@@ -38,10 +35,9 @@ public class PlayerController : MonoBehaviour
     {
         playerRB = GetComponent<Rigidbody2D>();
         playerAnimator = GetComponent<Animator>();
-        currentHealth = maxHealth;
-        currentPotion = 10;
-        healthBar.SetMaxHealth(maxHealth);
-        potionBar.SetPotion(10);
+        
+        healthBar.SetMaxHealth(DataManager.Instance.PlayerHealth);
+        potionBar.SetPotion(DataManager.Instance.PlayerPotion);
         namlu = transform.GetChild(1);
     }
 
@@ -94,7 +90,7 @@ public class PlayerController : MonoBehaviour
     }
     void Jump()
     {
-         a[2].Play();
+        a[2].Play();
         playerRB.AddForce(new Vector2(0, jumpSpeed));
     }
     void OnGroundCheck()
@@ -108,30 +104,43 @@ public class PlayerController : MonoBehaviour
     }
     public void TakeDamage(int damage)
     {
+        
         if (damagedTime <= 0)
         {
-            damagedTime = 0.7f;
-            currentHealth -= damage;
-            healthBar.SetHealth(currentHealth);
+            a[4].Play();
+            damagedTime = 1f;
+            DataManager.Instance.PlayerHealth -= damage;
+            healthBar.SetHealth(DataManager.Instance.PlayerHealth);
 
-            if (currentHealth <= 0)
+            StartCoroutine(PlayerHurtAnimate());
+
+            if (DataManager.Instance.PlayerHealth <= 0)
             {
 
                 playerAnimator.SetBool("dead", true);
                 Destroy(gameObject, 1f);
+                DataManager.Instance.Gameover=true;
 
             }
+            
         }
+        
 
+    }
+    IEnumerator PlayerHurtAnimate()
+    {
+        playerAnimator.SetBool("hurt", true);
+        yield return new WaitForSeconds(0.5f);
+        playerAnimator.SetBool("hurt", false);
     }
     void ShootFire()
     {
 
         a[1].Play();
-        if (currentPotion > 0)
+        if (DataManager.Instance.PlayerPotion > 0)
         {
-            currentPotion -= 1;
-            potionBar.SetPotion(currentPotion);
+            DataManager.Instance.PlayerPotion -= 1;
+            potionBar.SetPotion(DataManager.Instance.PlayerPotion);
             Transform temp;
             temp = Instantiate(fire, namlu.position, Quaternion.identity);
             if (facingRight)
@@ -153,8 +162,8 @@ public class PlayerController : MonoBehaviour
         if(other.tag=="Potion")
         {   
             a[3].Play();
-            currentPotion+=5;
-            potionBar.SetPotion(currentPotion);
+            DataManager.Instance.PlayerPotion+=5;
+            potionBar.SetPotion(DataManager.Instance.PlayerPotion);
             Destroy(other.gameObject);
         }
         if(other.tag=="Coin")
@@ -163,8 +172,26 @@ public class PlayerController : MonoBehaviour
             DataManager.Instance.UserScore+=1;
             Destroy(other.gameObject);
         }
+        if(other.tag=="Enemy")
+        {
+            TakeDamage(1);
+        }
         
     }
+    private void OnTriggerStay2D(Collider2D other) {
+        if(other.tag=="Enemy")
+        {
+            TakeDamage(1);
+        }
+       
+    }
+    void OnGUI()
+	{	
+		//SCORE
+		GUI.Label(new Rect(Screen.width*.74f, Screen.height*.0f, Screen.width*.1f, 
+						   Screen.height*.08f), " "+DataManager.Instance.UserScore, score);
+
+	}
    
 
    

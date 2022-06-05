@@ -13,7 +13,7 @@ public class EnemyController : MonoBehaviour
 
     Animator enemyAnimator;
 
-    bool colliderBusy=false;
+   
     bool mustPatrol;
     bool mustTurn;
 
@@ -46,12 +46,8 @@ public class EnemyController : MonoBehaviour
         }
     }
     private void OnTriggerEnter2D(Collider2D other) {
-        if(other.tag=="Player" && !colliderBusy)
-        {
-            colliderBusy=true;
-            other.GetComponent<PlayerController>().TakeDamage(1);
-        }
-        else if(other.tag=="Fire")
+    
+        if(other.tag=="Fire")
         {
             a.Play();
             GetDamage(1);
@@ -60,23 +56,7 @@ public class EnemyController : MonoBehaviour
         }
         
     }
-    private void OnTriggerStay2D(Collider2D other) {
-        if(other.tag=="Player")
-        {
-            colliderBusy=true;
-            other.GetComponent<PlayerController>().TakeDamage(1);
-        }
-       
-    }
-    private void OnTriggerExit2D(Collider2D other) {
-         if(other.tag=="Player")
-        {
-            colliderBusy=false;
-            
-        }
-       
-    }
-
+    
      public void GetDamage(float damage)
     {
         if ((health - damage) >= 0)
