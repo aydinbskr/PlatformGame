@@ -178,12 +178,28 @@ public class PlayerController : MonoBehaviour
         }
         
     }
+   
     private void OnTriggerStay2D(Collider2D other) {
         if(other.tag=="Enemy")
         {
             TakeDamage(1);
         }
        
+    }
+    void OnCollisionEnter2D(Collision2D col)
+	{
+		if(col.gameObject.tag=="Trap")
+		{
+            playerAnimator.SetBool("dead", true);
+            a[5].Play();
+            Invoke("KillPlayer",1f);  
+        }	
+	}
+    void KillPlayer()
+    {
+    
+        DataManager.Instance.Gameover=true;
+        Destroy(gameObject);
     }
     void OnGUI()
 	{	

@@ -9,6 +9,7 @@ TagManager:
   - Bottom
   - Coin
   - Potion
+  - Trap
   layers:
   - Default
   - TransparentFX

@@ -14,13 +14,14 @@ public class bottom : MonoBehaviour
 	public GUIStyle title;
 	public GUIStyle victory;
 
+	
+
     void OnCollisionEnter2D(Collision2D col)
 	{
 		if(col.gameObject.tag=="Player")
 		{
             DataManager.Instance.Gameover=true;
             Time.timeScale=0;
-			print("player drop");
         }
 			
 		Destroy(col.gameObject);
@@ -32,6 +33,7 @@ public class bottom : MonoBehaviour
 		
 		if( DataManager.Instance.Gameover)
 		{
+			
 			Time.timeScale=0;
 			DataManager.Instance.LevelTime=40;
 			if(GUI.Button(new Rect(Screen.width*.1f, Screen.height*.7f, Screen.width*.38f, Screen.height*.1f), "", replay))
