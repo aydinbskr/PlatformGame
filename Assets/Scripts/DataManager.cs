@@ -6,13 +6,7 @@ public class DataManager : MonoBehaviour
 {
     public static DataManager Instance;
 
-
-   
-    private int speed;
-
-    private int levelTime;
-
-    private int numberOfBricks;
+    private int killedEnemies;
 
     private int level;
 
@@ -20,11 +14,12 @@ public class DataManager : MonoBehaviour
     private int bestScore;
     private int playerHealth;
     private int playerPotion;
-    
+    private int checkpoint;
 
     private bool gameover;
-
-   
+    private bool key;
+    
+    private int eggHitCounter;
 
     void Awake()
     {
@@ -34,13 +29,15 @@ public class DataManager : MonoBehaviour
             Time.timeScale = 1;
             playerHealth = 4;
             playerPotion=10;
-            speed=6;
-            numberOfBricks=33;
+           
+            killedEnemies=0;
             level=1;
-            
+            checkpoint=-7;
             gameover=false;
+            key=false;
             userName=null;
-            levelTime=40;
+            
+            eggHitCounter=5;
             LoadData();
             
         }
@@ -90,26 +87,16 @@ public class DataManager : MonoBehaviour
             userName=value;
         }
     }
-    public int Speed
+   
+    public int KilledEnemies
     {
         get
         {
-            return speed;
+            return killedEnemies;
         }
         set
         {
-            speed=value;
-        }
-    }
-    public int NumberOfBricks
-    {
-        get
-        {
-            return numberOfBricks;
-        }
-        set
-        {
-            numberOfBricks=value;
+            killedEnemies=value;
         }
     }
     public int Level
@@ -121,17 +108,6 @@ public class DataManager : MonoBehaviour
         set
         {
             level=value;
-        }
-    }
-    public int LevelTime
-    {
-        get
-        {
-            return levelTime;
-        }
-        set
-        {
-            levelTime=value;
         }
     }
     public int BestScore
@@ -154,6 +130,39 @@ public class DataManager : MonoBehaviour
         set
         {
             gameover=value;
+        }
+    }
+    public bool Key
+    {
+        get
+        {
+            return key;
+        }
+        set
+        {
+            key=value;
+        }
+    }
+    public int Checkpoint
+    {
+        get
+        {
+            return checkpoint;
+        }
+        set
+        {
+            checkpoint=value;
+        }
+    }
+     public int EggHitCounter
+    {
+        get
+        {
+            return eggHitCounter;
+        }
+        set
+        {
+            eggHitCounter=value;
         }
     }
      public void LoadData()

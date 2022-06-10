@@ -10,11 +10,16 @@ TagManager:
   - Coin
   - Potion
   - Trap
+  - Key
+  - Apple
+  - Checkpoint
+  - Door
+  - Egg
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Background
   - Water
   - UI
   - Ground

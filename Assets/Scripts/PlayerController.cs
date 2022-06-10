@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 public class PlayerController : MonoBehaviour
@@ -35,6 +36,8 @@ public class PlayerController : MonoBehaviour
     {
         playerRB = GetComponent<Rigidbody2D>();
         playerAnimator = GetComponent<Animator>();
+
+        gameObject.transform.position=new Vector2(DataManager.Instance.Checkpoint,1);
         
         healthBar.SetMaxHealth(DataManager.Instance.PlayerHealth);
         potionBar.SetPotion(DataManager.Instance.PlayerPotion);
@@ -71,6 +74,7 @@ public class PlayerController : MonoBehaviour
         {
             damagedTime -= Time.deltaTime;
         }
+        
 
     }
 
@@ -172,6 +176,33 @@ public class PlayerController : MonoBehaviour
             DataManager.Instance.UserScore+=1;
             Destroy(other.gameObject);
         }
+        if(other.tag=="Apple")
+        {
+            a[3].Play();
+            DataManager.Instance.PlayerHealth+=3;
+            Destroy(other.gameObject);
+        }
+        
+        if(other.tag=="Checkpoint")
+        {
+            a[3].Play();
+            DataManager.Instance.Checkpoint=13;
+            Destroy(other.gameObject);
+        }
+        if(other.tag=="Key")
+        {
+            a[3].Play();
+            DataManager.Instance.Key=true;
+            print("Key"+DataManager.Instance.Key);
+            Destroy(other.gameObject);
+        }
+        if(other.tag=="Door" && DataManager.Instance.Key)
+        {
+            
+            a[6].Play();
+            DataManager.Instance.Level+=1;
+             SceneManager.LoadScene(DataManager.Instance.Level);
+        }
         if(other.tag=="Enemy")
         {
             TakeDamage(1);
@@ -206,6 +237,7 @@ public class PlayerController : MonoBehaviour
 		//SCORE
 		GUI.Label(new Rect(Screen.width*.74f, Screen.height*.0f, Screen.width*.1f, 
 						   Screen.height*.08f), " "+DataManager.Instance.UserScore, score);
+
 
 	}
    
