@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed = 4f;
     public float jumpSpeed = 4f;
 
-    public float damagedTime;
+    private float damagedTime;
     public GUIStyle score;
     
     AudioSource[] a;
@@ -67,7 +67,7 @@ public class PlayerController : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Space) )
         {
-            ShootFire();
+           StartCoroutine(ShootFire());
         }
 
         if (damagedTime > 0)
@@ -137,9 +137,10 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         playerAnimator.SetBool("hurt", false);
     }
-    void ShootFire()
+    IEnumerator ShootFire()
     {
-
+        
+        playerAnimator.SetBool("attack", true);
         a[1].Play();
         if (DataManager.Instance.PlayerPotion > 0)
         {
@@ -159,6 +160,8 @@ public class PlayerController : MonoBehaviour
 
         }
 
+        yield return new WaitForSeconds(0.5f);
+        playerAnimator.SetBool("attack", false);
 
     }
     private void OnTriggerEnter2D(Collider2D other) {
@@ -201,7 +204,8 @@ public class PlayerController : MonoBehaviour
             
             a[6].Play();
             DataManager.Instance.Level+=1;
-             SceneManager.LoadScene(DataManager.Instance.Level);
+            DataManager.Instance.Checkpoint=-7;
+            SceneManager.LoadScene(DataManager.Instance.Level);
         }
         if(other.tag=="Enemy")
         {

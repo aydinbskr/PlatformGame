@@ -60,9 +60,9 @@ public class Trap : MonoBehaviour
 			{
 				
 			}
-			
-			GUI.Label(new Rect(Screen.width*.4f, Screen.height*.3f, Screen.width*.1f, Screen.height*.08f),"Your Score:"+DataManager.Instance.UserScore, score);
-			GUI.Label(new Rect(Screen.width*.4f, Screen.height*.3f, Screen.width*.1f, Screen.height*.08f),"Number of Killed Enemy:"+DataManager.Instance.KilledEnemies, score);
+			GUI.Label(new Rect(Screen.width*.4f, Screen.height*.2f, Screen.width*.1f, Screen.height*.08f),""+DataManager.Instance.UserName, score);
+			GUI.Label(new Rect(Screen.width*.38f, Screen.height*.3f, Screen.width*.1f, Screen.height*.08f),"Your Score : "+DataManager.Instance.UserScore, score);
+			GUI.Label(new Rect(Screen.width*.38f, Screen.height*.4f, Screen.width*.1f, Screen.height*.08f),"Number of Killed Enemy : "+DataManager.Instance.KilledEnemies, score);
 
 			
 		}

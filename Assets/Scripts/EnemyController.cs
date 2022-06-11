@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     public float health;
-    public float damage;
+    
     public float walkSpeed;
 
     public Transform groundCheck;
@@ -75,7 +75,7 @@ public class EnemyController : MonoBehaviour
     {
         if (health <= 0)
         {
-            
+            DataManager.Instance.KilledEnemies++;
             Destroy(gameObject);
         }
     }
