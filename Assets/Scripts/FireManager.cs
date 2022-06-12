@@ -19,11 +19,16 @@ public class FireManager : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D other) {
         if(other.gameObject.tag =="Enemy")
         {
-            print("carpisti");
             fireAnimator.SetBool("hit",true);
+            Destroy(gameObject,0.5f); 
         }
-        
-        
+        if(other.gameObject.tag =="Boss")
+        {
+            fireAnimator.SetBool("hit",true);
+            Destroy(gameObject,0.5f); 
+        }
+    
+         Destroy(gameObject,0.5f);
     }
     
     

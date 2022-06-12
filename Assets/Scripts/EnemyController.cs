@@ -57,7 +57,7 @@ public class EnemyController : MonoBehaviour
         
     }
     
-     public void GetDamage(float damage)
+    public void GetDamage(float damage)
     {
         if ((health - damage) >= 0)
         {

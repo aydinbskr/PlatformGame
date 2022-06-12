@@ -122,8 +122,7 @@ public class PlayerController : MonoBehaviour
             {
 
                 playerAnimator.SetBool("dead", true);
-                Destroy(gameObject, 1f);
-                DataManager.Instance.Gameover=true;
+                Invoke("PlayerDead", 2);
 
             }
             
@@ -131,6 +130,12 @@ public class PlayerController : MonoBehaviour
         
 
     }
+    void PlayerDead()
+    {
+        Destroy(gameObject);
+        DataManager.Instance.Gameover=true;
+    }
+
     IEnumerator PlayerHurtAnimate()
     {
         playerAnimator.SetBool("hurt", true);
@@ -199,13 +204,19 @@ public class PlayerController : MonoBehaviour
             print("Key"+DataManager.Instance.Key);
             Destroy(other.gameObject);
         }
-        if(other.tag=="Door" && DataManager.Instance.Key)
+        if(other.tag=="Door" && DataManager.Instance.Key && DataManager.Instance.Level!=3)
         {
             
             a[6].Play();
             DataManager.Instance.Level+=1;
             DataManager.Instance.Checkpoint=-7;
             SceneManager.LoadScene(DataManager.Instance.Level);
+        }
+        if(other.tag=="Door" && DataManager.Instance.Level==3)
+        {
+            
+            a[6].Play();
+            DataManager.Instance.Victory=true;
         }
         if(other.tag=="Enemy")
         {
@@ -228,7 +239,8 @@ public class PlayerController : MonoBehaviour
             playerAnimator.SetBool("dead", true);
             a[5].Play();
             Invoke("KillPlayer",1f);  
-        }	
+        }
+        	
 	}
     void KillPlayer()
     {

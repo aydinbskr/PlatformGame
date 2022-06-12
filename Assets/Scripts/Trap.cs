@@ -66,6 +66,27 @@ public class Trap : MonoBehaviour
 
 			
 		}
+
+		if( DataManager.Instance.Victory)
+		{
+			Time.timeScale=0;
+			//Victory background image
+			if(GUI.Button(new Rect(Screen.width*.1f, Screen.height*.08f, Screen.width*.8f, Screen.height*.6f), "", victory))
+			{
+				
+			}
+			GUI.Label(new Rect(Screen.width*.35f, Screen.height*.28f, Screen.width*.1f, Screen.height*.08f),"Congurulations "+DataManager.Instance.UserName, score);
+			GUI.Label(new Rect(Screen.width*.35f, Screen.height*.33f, Screen.width*.1f, Screen.height*.08f),"Your Score : "+DataManager.Instance.UserScore, score);
+			GUI.Label(new Rect(Screen.width*.35f, Screen.height*.38f, Screen.width*.1f, Screen.height*.08f),"Number of Killed Enemy : "+DataManager.Instance.KilledEnemies, score);
+			if(GUI.Button(new Rect(Screen.width*.3f, Screen.height*.7f, Screen.width*.38f, Screen.height*.1f), "", home))
+			{
+				DataManager.Instance.UserScore=0;
+				DataManager.Instance.Victory=false;
+				DataManager.Instance.Checkpoint=-7;
+				Time.timeScale=1;
+				SceneManager.LoadScene(0);
+			}
+		}
 		
 
 	}

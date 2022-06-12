@@ -17,6 +17,7 @@ public class DataManager : MonoBehaviour
     private int checkpoint;
 
     private bool gameover;
+    private bool victory;
     private bool key;
     
     private int eggHitCounter;
@@ -31,9 +32,10 @@ public class DataManager : MonoBehaviour
             playerPotion=10;
            
             killedEnemies=0;
-            level=1;
+            level=3;
             checkpoint=-7;
             gameover=false;
+            victory=false;
             key=false;
             userName=null;
             
@@ -130,6 +132,17 @@ public class DataManager : MonoBehaviour
         set
         {
             gameover=value;
+        }
+    }
+    public bool Victory
+    {
+        get
+        {
+            return victory;
+        }
+        set
+        {
+            victory=value;
         }
     }
     public bool Key

@@ -16,7 +16,7 @@ public class MainMenu : MonoBehaviour
         a.Play();
         if(!String.IsNullOrWhiteSpace(DataManager.Instance.UserName))
         {
-             SceneManager.LoadScene(1);
+             SceneManager.LoadScene(DataManager.Instance.Level);
         }
        
     }

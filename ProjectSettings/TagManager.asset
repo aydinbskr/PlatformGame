@@ -15,6 +15,7 @@ TagManager:
   - Checkpoint
   - Door
   - Egg
+  - Boss
   layers:
   - Default
   - TransparentFX
