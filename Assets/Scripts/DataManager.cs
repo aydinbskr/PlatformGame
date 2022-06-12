@@ -49,6 +49,18 @@ public class DataManager : MonoBehaviour
         }
         DontDestroyOnLoad(gameObject);
     }
+    void FixedUpdate()
+	{
+        //player eski skorunu geçtiyse
+		if(UserScore>BestScore)
+		{
+			
+			PlayerPrefs.SetInt("BestScore",UserScore);
+			PlayerPrefs.Save();
+			
+		}
+
+    }
 
     public int UserScore{get;set;}
 

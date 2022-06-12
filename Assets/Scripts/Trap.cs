@@ -29,7 +29,7 @@ public class Trap : MonoBehaviour
     void OnGUI()
 	{
 		
-		
+		//GAME OVER PANEL
 		if( DataManager.Instance.Gameover)
 		{
 			
@@ -63,10 +63,11 @@ public class Trap : MonoBehaviour
 			GUI.Label(new Rect(Screen.width*.4f, Screen.height*.2f, Screen.width*.1f, Screen.height*.08f),""+DataManager.Instance.UserName, score);
 			GUI.Label(new Rect(Screen.width*.38f, Screen.height*.3f, Screen.width*.1f, Screen.height*.08f),"Your Score : "+DataManager.Instance.UserScore, score);
 			GUI.Label(new Rect(Screen.width*.38f, Screen.height*.4f, Screen.width*.1f, Screen.height*.08f),"Number of Killed Enemy : "+DataManager.Instance.KilledEnemies, score);
+			GUI.Label(new Rect(Screen.width*.38f, Screen.height*.5f, Screen.width*.1f, Screen.height*.08f),"Best Score : "+DataManager.Instance.BestScore, score);
 
 			
 		}
-
+		//VICTORY PANEL
 		if( DataManager.Instance.Victory)
 		{
 			Time.timeScale=0;
@@ -78,6 +79,7 @@ public class Trap : MonoBehaviour
 			GUI.Label(new Rect(Screen.width*.35f, Screen.height*.28f, Screen.width*.1f, Screen.height*.08f),"Congurulations "+DataManager.Instance.UserName, score);
 			GUI.Label(new Rect(Screen.width*.35f, Screen.height*.33f, Screen.width*.1f, Screen.height*.08f),"Your Score : "+DataManager.Instance.UserScore, score);
 			GUI.Label(new Rect(Screen.width*.35f, Screen.height*.38f, Screen.width*.1f, Screen.height*.08f),"Number of Killed Enemy : "+DataManager.Instance.KilledEnemies, score);
+			GUI.Label(new Rect(Screen.width*.35f, Screen.height*.43f, Screen.width*.1f, Screen.height*.08f),"Best Score : "+DataManager.Instance.BestScore, score);
 			if(GUI.Button(new Rect(Screen.width*.3f, Screen.height*.7f, Screen.width*.38f, Screen.height*.1f), "", home))
 			{
 				DataManager.Instance.UserScore=0;

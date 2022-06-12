@@ -6,8 +6,10 @@ public class Boss : MonoBehaviour
 {
     public Transform player;
 	Animator bossAnimator;
-	public float health;
+	public int health;
 	public GameObject door;
+
+    public HealthBar healthBar;
 
 	public bool isFlipped = false;
 	AudioSource a;
@@ -19,6 +21,7 @@ public class Boss : MonoBehaviour
     {
         bossAnimator= GetComponent<Animator>();
 		health=4;
+        healthBar.SetMaxHealth(health);
     }
 
     // Update is called once per frame
@@ -63,12 +66,12 @@ public class Boss : MonoBehaviour
         }
         	
 	}
-	public void GetDamage(float damage)
+	public void GetDamage(int damage)
     {
         if ((health - damage) >= 0)
         {
             health -= damage;
-           
+            healthBar.SetHealth(health);
         }
         else
         {
@@ -89,6 +92,7 @@ public class Boss : MonoBehaviour
     void BossDead()
     {
         Destroy(gameObject);
+        DataManager.Instance.Victory=true;
 		door.SetActive(true);
     }
 

@@ -26,7 +26,9 @@ public class PlayerController : MonoBehaviour
 
     private float damagedTime;
     public GUIStyle score;
-    bool isReachedCP=false;
+    bool isMessageActive=false;
+
+    private string message;
     
     AudioSource[] a;
     void Awake()
@@ -77,7 +79,13 @@ public class PlayerController : MonoBehaviour
             damagedTime -= Time.deltaTime;
         }
         
-
+        if(DataManager.Instance.EggHitCounter==0)
+		{
+            DataManager.Instance.EggHitCounter=-1;
+            a[7].Play();
+            message="You won 100 coins";
+            StartCoroutine(DisplayMessage()); 
+        }
     }
 
     void Move()
@@ -196,6 +204,7 @@ public class PlayerController : MonoBehaviour
         if(other.tag=="Checkpoint")
         {
             a[3].Play();
+            message="You reached checkpoint";
             StartCoroutine(DisplayMessage());
             DataManager.Instance.Checkpoint=13;
             Destroy(other.gameObject);
@@ -213,13 +222,15 @@ public class PlayerController : MonoBehaviour
             a[6].Play();
             DataManager.Instance.Level+=1;
             DataManager.Instance.Checkpoint=-7;
+            DataManager.Instance.Key=false;
+            Destroy(other.gameObject);
             SceneManager.LoadScene(DataManager.Instance.Level);
         }
         if(other.tag=="Door" && DataManager.Instance.Level==3)
         {
             
             a[6].Play();
-            DataManager.Instance.Victory=true;
+            //DataManager.Instance.Victory=true;
         }
         if(other.tag=="Enemy")
         {
@@ -243,6 +254,7 @@ public class PlayerController : MonoBehaviour
             a[5].Play();
             Invoke("KillPlayer",1f);  
         }
+        
         	
 	}
     void KillPlayer()
@@ -253,23 +265,25 @@ public class PlayerController : MonoBehaviour
     }
     void OnGUI()
 	{	
-		//SCORE
-		GUI.Label(new Rect(Screen.width*.74f, Screen.height*.0f, Screen.width*.1f, 
+		if(DataManager.Instance.Level!=3)
+        {
+            //SCORE
+		    GUI.Label(new Rect(Screen.width*.74f, Screen.height*.0f, Screen.width*.1f, 
 						   Screen.height*.08f), " "+DataManager.Instance.UserScore, score);
-
-        if(isReachedCP)
+        }
+        if(isMessageActive)
         {
             
             GUI.Label(new Rect(Screen.width*.4f, Screen.height*.4f, Screen.width*.1f, 
-						   Screen.height*.08f), "You reached checkpoint", score);
+						   Screen.height*.08f), message, score);
            
         }
 	}
     IEnumerator DisplayMessage()
     {
-        isReachedCP=true;
+        isMessageActive=true;
         yield return new WaitForSeconds(2f);
-        isReachedCP=false;
+        isMessageActive=false;
     }
 
    
