@@ -31,6 +31,7 @@ public class Egg : MonoBehaviour
             if(DataManager.Instance.EggHitCounter==0)
             {
                 a[1].Play();
+                DataManager.Instance.UserScore+=100;
                 GetComponent<SpriteRenderer>().enabled=false;
                 Destroy(gameObject,3f);
             }

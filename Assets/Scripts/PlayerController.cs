@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
 
     private float damagedTime;
     public GUIStyle score;
+    bool isReachedCP=false;
     
     AudioSource[] a;
     void Awake()
@@ -36,6 +37,7 @@ public class PlayerController : MonoBehaviour
     {
         playerRB = GetComponent<Rigidbody2D>();
         playerAnimator = GetComponent<Animator>();
+        damagedTime=0;
 
         gameObject.transform.position=new Vector2(DataManager.Instance.Checkpoint,1);
         
@@ -194,6 +196,7 @@ public class PlayerController : MonoBehaviour
         if(other.tag=="Checkpoint")
         {
             a[3].Play();
+            StartCoroutine(DisplayMessage());
             DataManager.Instance.Checkpoint=13;
             Destroy(other.gameObject);
         }
@@ -254,9 +257,20 @@ public class PlayerController : MonoBehaviour
 		GUI.Label(new Rect(Screen.width*.74f, Screen.height*.0f, Screen.width*.1f, 
 						   Screen.height*.08f), " "+DataManager.Instance.UserScore, score);
 
-
+        if(isReachedCP)
+        {
+            
+            GUI.Label(new Rect(Screen.width*.4f, Screen.height*.4f, Screen.width*.1f, 
+						   Screen.height*.08f), "You reached checkpoint", score);
+           
+        }
 	}
-   
+    IEnumerator DisplayMessage()
+    {
+        isReachedCP=true;
+        yield return new WaitForSeconds(2f);
+        isReachedCP=false;
+    }
 
    
 }

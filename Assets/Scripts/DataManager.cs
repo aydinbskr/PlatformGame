@@ -32,7 +32,7 @@ public class DataManager : MonoBehaviour
             playerPotion=10;
            
             killedEnemies=0;
-            level=3;
+            level=1;
             checkpoint=-7;
             gameover=false;
             victory=false;

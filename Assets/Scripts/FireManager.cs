@@ -12,7 +12,7 @@ public class FireManager : MonoBehaviour
     {
         
         fireAnimator=GetComponent<Animator>();
-        Destroy(gameObject,3f);
+        Destroy(gameObject,2f);
     }
 
     
@@ -28,7 +28,6 @@ public class FireManager : MonoBehaviour
             Destroy(gameObject,0.5f); 
         }
     
-         Destroy(gameObject,0.5f);
     }
     
     
