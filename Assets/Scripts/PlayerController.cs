@@ -198,6 +198,11 @@ public class PlayerController : MonoBehaviour
         {
             a[3].Play();
             DataManager.Instance.PlayerHealth+=3;
+            if(DataManager.Instance.PlayerHealth>4)
+            {
+                DataManager.Instance.PlayerHealth=4;
+            }
+            healthBar.SetHealth(DataManager.Instance.PlayerHealth);
             Destroy(other.gameObject);
         }
         
